@@ -23,7 +23,12 @@ const httpTrigger: AzureFunction = async function (
 const generateSASToken = (container: string, permissions: string): any => {
   const uuidStr: string = v4();
 
-  const accountData = parseConnString(process.env.AzureWebJobsStorage);
+  const connString: string = process.env.AzureWebJobsStorage;
+  if (connString == null) {
+    throw new Error("Unable to parse Connection String");
+  }
+
+  const accountData = parseConnString(connString);
   const sharedKeyCredential: StorageSharedKeyCredential = new StorageSharedKeyCredential(
     accountData.name,
     accountData.key
