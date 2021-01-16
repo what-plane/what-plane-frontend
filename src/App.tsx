@@ -1,6 +1,7 @@
 import React from "react";
-import { Box, Grid, Grommet, Heading, Text, Image } from "grommet";
-import { Card, CardHeader, CardBody, CardFooter, Button } from "grommet";
+import { Box, Grid, Grommet, Heading, Text, Image, Button } from "grommet";
+import { Card, CardHeader, CardBody, CardFooter } from "grommet";
+import { FaGithub } from "react-icons/fa";
 import { grommet } from "grommet/themes";
 
 function App() {
@@ -21,7 +22,7 @@ function App() {
             direction="row"
             align="center"
             justify="between"
-            background="brand"
+            style={{ backgroundColor: "#ED64A6" }}
             pad={{ left: "medium", right: "small", vertical: "small" }}
           />
           <Box
@@ -29,33 +30,43 @@ function App() {
             pad="medium"
             responsive={true}
             align="center"
-            justify="center"
-            direction="row-responsive"
+            justify="start"
+            direction="column"
+            background={{
+              position: "50% 70%",
+              repeat: "no-repeat",
+              size: "contain",
+              image: "url(images/bg.svg)",
+            }}
           >
-            <Card height="40%" width="large" background="light-1">
+            <Card height="50%" width="large" background="light-1">
               <CardHeader pad={{ horizontal: "medium" }}>
-                <Heading style={{ fontWeight: "bold" }}>WhatPlane</Heading>
-                <Text size="xsmall" color="neutral-2">
-                  A passenger aircraft recognition app based on DenseNet
-                </Text>
+                <Heading level="1" style={{ fontWeight: "bold" }}>
+                  WhatPlane?
+                </Heading>
+                <Button
+                  size="small"
+                  color="light-3"
+                  primary
+                  // label="GitHub"
+                  icon={<FaGithub />}
+                />
               </CardHeader>
-              <CardBody pad="medium">
-                <Box pad="small" round="small">
-                  <Image
-                    fit="contain"
-                    src="//v2.grommet.io/assets/Wilderpeople_Ricky.jpg"
-                  />
+
+              <CardBody pad="small">
+                <Box>
+                  <Image fit="contain" src="images/a350_1.jpg" />
                 </Box>
               </CardBody>
               <CardFooter
                 pad={{ horizontal: "medium", vertical: "small" }}
-                background="light-2"
+                background="#F2F2F2"
               >
                 <Text
                   size="small"
                   color="brand"
                   weight="bold"
-                  style={{ textTransform: "uppercase" }}
+                  style={{ textTransform: "uppercase", color: "#63B3ED" }}
                 >
                   Prediction
                 </Text>
