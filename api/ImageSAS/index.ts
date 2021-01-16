@@ -23,9 +23,9 @@ const httpTrigger: AzureFunction = async function (
 const generateSASToken = (container: string, permissions: string): any => {
   const uuidStr: string = v4();
 
-  const connString: string = process.env.AzureWebJobsStorage;
+  const connString: string = process.env.AZURE_BLOB_CONN_STRING;
   if (connString == null) {
-    throw new Error("Unable to parse Connection String");
+    throw new Error("Unable to load Connection String");
   }
 
   const accountData = parseConnString(connString);
