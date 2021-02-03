@@ -1,24 +1,24 @@
 import { BlockBlobClient } from "@azure/storage-blob";
 import axios from "axios";
 
-// Azure Storage Container Details
-
-const containerName = `uploaded-images`;
-
 // Upload file to blob
 const uploadFileToBlob = async (file: File | null): Promise<string> => {
   if (!file) return "";
 
-  // Get SAS token from Azure Function
+  // Get sasKey, container, etc.. from API
   const {
     sasKey,
+    containerName,
     url,
     uuid,
-  }: { sasKey: string; url: string; uuid: string } = await axios
-    .get("/api/ImageSAS/")
-    .then((response) => {
-      return response.data;
-    });
+  }: {
+    sasKey: string;
+    containerName: string;
+    url: string;
+    uuid: string;
+  } = await axios.get("/api/ImageSAS/").then((response) => {
+    return response.data;
+  });
 
   // Create BlobClient
   const blobClient = new BlockBlobClient(
