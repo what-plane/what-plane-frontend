@@ -1,20 +1,22 @@
 import React from "react";
-import {
-  Grommet,
-  Box,
-  Header,
-  Heading,
-  Button,
-} from "grommet";
+import { Grommet, Box, Header, Heading, Button } from "grommet";
 import { FaGithub } from "react-icons/fa";
 import { grommet } from "grommet/themes";
 import { MainContent } from "./components/MainContent";
+import { DisplayResults } from "./components/DisplayResults";
+
 import styled from "styled-components";
 
 function App() {
   return (
     <Grommet theme={grommet} full>
-      <PageWrapper className="PageWrapper" fill="vertical" overflow="auto" align="center" flex="grow">
+      <PageWrapper
+        className="PageWrapper"
+        fill="vertical"
+        overflow="auto"
+        align="center"
+        flex="grow"
+      >
         <Header
           align="center"
           direction="row"
