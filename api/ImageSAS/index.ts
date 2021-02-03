@@ -3,8 +3,8 @@ import {
   StorageSharedKeyCredential,
   ContainerSASPermissions,
   generateBlobSASQueryParameters,
+  BlobSASSignatureValues,
 } from "@azure/storage-blob";
-import { match } from "assert";
 import { v4 } from "uuid";
 
 const httpTrigger: AzureFunction = async function (
@@ -20,7 +20,11 @@ const httpTrigger: AzureFunction = async function (
   };
 };
 
-const generateSASToken = (container: string, permissions: string): any => {
+const generateSASToken = (
+  container: string,
+  permissions: string,
+  blobOnly: boolean = true
+): any => {
   const uuidStr: string = v4();
 
   const connString: string = process.env.AZURE_BLOB_CONN_STRING;
@@ -38,19 +42,26 @@ const generateSASToken = (container: string, permissions: string): any => {
   const expiryDate: Date = new Date();
   expiryDate.setMinutes(expiryDate.getMinutes() + 5);
 
+  let sasSignatureValues: BlobSASSignatureValues = {
+    containerName: container,
+    permissions: ContainerSASPermissions.parse(permissions),
+    expiresOn: expiryDate,
+  };
+
+  if (blobOnly) {
+    sasSignatureValues = { ...sasSignatureValues, blobName: uuidStr };
+  }
+
   const sasKey = generateBlobSASQueryParameters(
-    {
-      containerName: container,
-      permissions: ContainerSASPermissions.parse(permissions),
-      expiresOn: expiryDate,
-    },
+    sasSignatureValues,
     sharedKeyCredential
   );
 
   return {
-    sasKey: sasKey.toString(),
     url: accountData.url,
+    container: container,
     uuid: uuidStr,
+    sasKey: sasKey.toString(),
   };
 };
 
