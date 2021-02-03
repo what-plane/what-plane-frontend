@@ -8,12 +8,12 @@ const uploadFileToBlob = async (file: File | null): Promise<string> => {
   // Get sasKey, container, etc.. from API
   const {
     sasKey,
-    containerName,
+    container,
     url,
     uuid,
   }: {
     sasKey: string;
-    containerName: string;
+    container: string;
     url: string;
     uuid: string;
   } = await axios.get("/api/ImageSAS/").then((response) => {
@@ -22,7 +22,7 @@ const uploadFileToBlob = async (file: File | null): Promise<string> => {
 
   // Create BlobClient
   const blobClient = new BlockBlobClient(
-    url + "/" + containerName + "/" + uuid + "?" + sasKey
+    url + "/" + container + "/" + uuid + "?" + sasKey
   );
 
   const options = { blobHTTPHeaders: { blobContentType: file.type } };
