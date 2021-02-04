@@ -3,7 +3,6 @@ import { Grommet, Box, Header, Heading, Button } from "grommet";
 import { FaGithub } from "react-icons/fa";
 import { grommet } from "grommet/themes";
 import { MainContent } from "./components/MainContent";
-import { DisplayResults } from "./components/DisplayResults";
 
 import styled from "styled-components";
 
