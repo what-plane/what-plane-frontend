@@ -5,14 +5,11 @@ import { LoadingSpinner } from "./LoadingSpinner";
 import { DisplayResults } from "./DisplayResults";
 
 import uploadFileToBlob from "../services/storage";
-import fetchPrediction from "../services/predictions";
+import { Prediction, fetchPrediction } from "../services/predictions";
 
 export const MainContent = () => {
   const [imageURL, setImageURL] = useState<string>("");
-  const [prediction, setPrediction] = useState({
-    class_name: "",
-    class_prob: "0",
-  });
+  const [prediction, setPrediction] = useState<Prediction>();
 
   // file to upload to container
   const [fileSelected, setFileSelected] = useState<File>();
@@ -46,6 +43,12 @@ export const MainContent = () => {
       }
     }
   };
+
+  const onClickNewImage = () => {
+    setFileSelected(undefined);
+    setPrediction(undefined);
+    setImageURL("");
+  };
   return (
     <Box
       align="center"
@@ -71,7 +74,22 @@ export const MainContent = () => {
           Upload Image
         </Heading>
       </Box>
-      <ImageUpload onFileSelect={onFileSelect} onClickSubmit={onClickSubmit} />
+      <Box>
+        {!uploading && prediction === undefined && (
+          <ImageUpload
+            onFileSelect={onFileSelect}
+            onClickSubmit={onClickSubmit}
+          />
+        )}
+        {uploading && prediction === undefined && <LoadingSpinner />}
+        {prediction !== undefined && (
+          <DisplayResults
+            imageURL={imageURL}
+            prediction={prediction}
+            onClickNewImage={onClickNewImage}
+          />
+        )}
+      </Box>
     </Box>
   );
 };

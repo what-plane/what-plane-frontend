@@ -1,12 +1,27 @@
 import React from "react";
 import { Button, Text, Image, Box } from "grommet";
+import { Prediction } from "../services/predictions";
 
-export const DisplayResults = () => {
+export const DisplayResults = ({
+  imageURL,
+  prediction,
+  onClickNewImage,
+}: {
+  imageURL: string;
+  prediction: Prediction;
+  onClickNewImage: any;
+}) => {
   return (
     <Box>
-        <Box align="center" justify="center" fill="horizontal" round="small" overflow="hidden">
-        <Image src="images/Delta_Air_Lines_Boeing_737-832.jpg" fill="horizontal" />
-        </Box>
+      <Box
+        align="center"
+        justify="center"
+        fill="horizontal"
+        round="small"
+        overflow="hidden"
+      >
+        <Image src={imageURL} fill="horizontal" />
+      </Box>
       <Box
         align="end"
         justify="center"
@@ -26,18 +41,18 @@ export const DisplayResults = () => {
           <Text textAlign="start" weight="bold" size="large">
             Prediction:
           </Text>
-          <Text size="large">A380</Text>
+          <Text size="large">{prediction.class_name}</Text>
         </Box>
         <Box
           align="center"
           justify="center"
           pad="small"
-          background={{ color: "status-ok" }}
+          background={{ color: prediction.class_status }}
           round="xsmall"
           fill="vertical"
         >
           <Text weight="bold" color="white">
-            90 Percent
+            {prediction.class_prob.toFixed(1)} Percent
           </Text>
         </Box>
       </Box>
@@ -48,7 +63,7 @@ export const DisplayResults = () => {
         direction="row-responsive"
         fill="horizontal"
       >
-        <Button label="New Image" />
+        <Button label="New Image" onClick={onClickNewImage} />
       </Box>
     </Box>
   );
