@@ -22,7 +22,7 @@ const uploadFileToBlob = async (file: File | null): Promise<string> => {
 
   // Create BlobClient
   const blobClient = new BlockBlobClient(
-    url + "/" + container + "/" + uuid + "?" + sasKey
+    `${url}/${container}/${uuid}?${sasKey}`
   );
 
   const options = { blobHTTPHeaders: { blobContentType: file.type } };
@@ -30,7 +30,6 @@ const uploadFileToBlob = async (file: File | null): Promise<string> => {
   await blobClient.uploadData(file, options);
 
   const blobURL: string = blobClient.url;
-  console.log("Blob URL", blobURL);
   return blobURL;
 };
 
