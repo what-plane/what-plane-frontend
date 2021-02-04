@@ -13,7 +13,7 @@ export interface Prediction {
   class_status?: string;
 }
 
-export const fetchPrediction = async (blobURL: string) => {
+export const fetchPrediction = async (blobURL: string): Promise<Prediction> => {
   const uuid = blobURL.match(uuidRegex);
   let data: PredictData = await axios
     .get<PredictData>(
@@ -25,8 +25,8 @@ export const fetchPrediction = async (blobURL: string) => {
 
   data = {
     ...data,
-    predictions: data.predictions.map<Prediction>((pred: Prediction) => {
-      return <Prediction>{
+    predictions: data.predictions.map((pred) => {
+      return {
         ...pred,
         class_prob: pred.class_prob * 100,
         class_status: calcClassStatus(pred.class_prob),
@@ -37,8 +37,8 @@ export const fetchPrediction = async (blobURL: string) => {
   return data.predictions[0];
 };
 
-const calcClassStatus = (classProb: number) => {
-  let predictionStatus: String;
+const calcClassStatus = (classProb: number): string => {
+  let predictionStatus: string;
 
   if (classProb > 0.8) {
     predictionStatus = "status-ok";
