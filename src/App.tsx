@@ -1,5 +1,5 @@
 import React from "react";
-import { Grommet, Box, Header, Heading, Button } from "grommet";
+import { Grommet, Box, Header, Heading, Button, Text } from "grommet";
 import { FaGithub } from "react-icons/fa";
 import { MainContent } from "./components/MainContent";
 import { WhatPlaneTheme } from "./theme/WhatPlane";
@@ -38,8 +38,10 @@ function App() {
               justify="between"
               direction="row"
               fill="horizontal"
+              pad={{ top: "medium" }}
             >
-              <Heading>WhatPlane?</Heading>
+              <Heading margin="small">WhatPlane?</Heading>
+
               <Button
                 size="large"
                 href="https://github.com/what-plane"
@@ -47,7 +49,21 @@ function App() {
                 icon={<FaGithub />}
               />
             </Box>
+            <Box pad="small">
+              <Text size="xsmall" color="dark-1">
+                A passenger aircraft recognition app based on Densenet.
+                <br /> Created by William Parr, Ashrith Yerrapragada and Stephen
+                Griffiths
+              </Text>
+            </Box>
+
             <MainContent />
+            <Box align="center" justify="center" pad="small">
+              <Text size="xsmall" color="dark-1">
+                By using our app, you agree to us storing the uploaded images
+                for future model training and processing.
+              </Text>
+            </Box>
           </Box>
         </Box>
       </PageWrapper>
