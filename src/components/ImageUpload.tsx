@@ -5,9 +5,11 @@ import Dropzone from "react-dropzone";
 export const ImageUpload = ({
   onFileSelect,
   onClickSubmit,
+  dropzoneText,
 }: {
   onFileSelect: (event: any) => void;
   onClickSubmit: () => Promise<void>;
+  dropzoneText: string;
 }) => {
   return (
     <Form style={{ width: "50%" }}>
@@ -30,7 +32,7 @@ export const ImageUpload = ({
                 fill="horizontal"
               >
                 <Text textAlign="center" size="small" color="white">
-                  Drop or Select an Image
+                  {dropzoneText}
                 </Text>
               </Box>
             </div>

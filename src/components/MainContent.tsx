@@ -13,12 +13,14 @@ export const MainContent = () => {
 
   // file to upload to container
   const [fileSelected, setFileSelected] = useState<File>();
+  const [dropzoneText, setDropzoneText] = useState("Drop or Select an Image");
 
   const [uploading, setUploading] = useState(false);
 
   const onFileSelect = (selectedFiles: Array<File>) => {
     // capture file into state
     setFileSelected(selectedFiles[0]);
+    setDropzoneText(selectedFiles[0].name);
   };
 
   const onClickSubmit = async () => {
@@ -88,6 +90,7 @@ export const MainContent = () => {
       >
         {!uploading && predictionData === undefined && (
           <ImageUpload
+            dropzoneText={dropzoneText}
             onFileSelect={onFileSelect}
             onClickSubmit={onClickSubmit}
           />
