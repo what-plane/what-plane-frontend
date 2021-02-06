@@ -15,7 +15,7 @@ const httpTrigger: AzureFunction = async function (
   const container = "uploaded-images";
 
   context.res = {
-    // status: 200, /* Defaults to 200 */
+    // status: 200, /* Defaults to 200 *//
     body: generateSASToken(container, permissions),
   };
 };
