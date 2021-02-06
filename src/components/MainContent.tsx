@@ -5,11 +5,11 @@ import { LoadingSpinner } from "./LoadingSpinner";
 import { DisplayResults } from "./DisplayResults";
 
 import uploadFileToBlob from "../services/storage";
-import { Prediction, fetchPrediction } from "../services/predictions";
+import { PredictData, fetchPrediction } from "../services/predictions";
 
 export const MainContent = () => {
   const [imageURL, setImageURL] = useState<string>("");
-  const [prediction, setPrediction] = useState<Prediction>();
+  const [predictionData, setPredictionData] = useState<PredictData>();
 
   // file to upload to container
   const [fileSelected, setFileSelected] = useState<File>();
@@ -35,7 +35,7 @@ export const MainContent = () => {
         // prepare UI for results
         setImageURL(thisBlobURL);
         const predObject = await fetchPrediction(thisBlobURL);
-        setPrediction(predObject);
+        setPredictionData(predObject);
 
         // reset state
         setFileSelected(undefined);
@@ -46,7 +46,7 @@ export const MainContent = () => {
 
   const onClickNewImage = () => {
     setFileSelected(undefined);
-    setPrediction(undefined);
+    setPredictionData(undefined);
     setImageURL("");
   };
   return (
@@ -85,17 +85,17 @@ export const MainContent = () => {
         pad="xsmall"
         style={{ width: "80%" }}
       >
-        {!uploading && prediction === undefined && (
+        {!uploading && predictionData === undefined && (
           <ImageUpload
             onFileSelect={onFileSelect}
             onClickSubmit={onClickSubmit}
           />
         )}
-        {uploading && prediction === undefined && <LoadingSpinner />}
-        {prediction !== undefined && (
+        {uploading && predictionData === undefined && <LoadingSpinner />}
+        {predictionData !== undefined && (
           <DisplayResults
             imageURL={imageURL}
-            prediction={prediction}
+            predictionData={predictionData}
             onClickNewImage={onClickNewImage}
           />
         )}

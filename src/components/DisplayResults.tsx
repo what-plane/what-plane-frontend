@@ -1,17 +1,18 @@
 import React from "react";
 import { Button, Image, Box } from "grommet";
-import { Prediction } from "../services/predictions";
+import { PredictData } from "../services/predictions";
 import { WhatPlaneResult } from "./WhatPlaneResult"
 
 export const DisplayResults = ({
   imageURL,
-  prediction,
+  predictionData,
   onClickNewImage,
 }: {
   imageURL: string;
-  prediction: Prediction;
+  predictionData: PredictData;
   onClickNewImage: any;
 }) => {
+  const prediction = predictionData.predictions[0]
   return (
     <Box>
       <Box
@@ -23,6 +24,7 @@ export const DisplayResults = ({
       >
         <Image src={imageURL} fill="horizontal" />
       </Box>
+      { predictionData.predictor !== "whatplane" }
       <WhatPlaneResult prediction={prediction}/>
       <Box
         align="end"
