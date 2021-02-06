@@ -1,14 +1,13 @@
 import React from "react";
 import { Grommet, Box, Header, Heading, Button } from "grommet";
 import { FaGithub } from "react-icons/fa";
-import { grommet } from "grommet/themes";
 import { MainContent } from "./components/MainContent";
-
+import { WhatPlaneTheme } from "./theme/WhatPlane";
 import styled from "styled-components";
 
 function App() {
   return (
-    <Grommet theme={grommet} full>
+    <Grommet theme={WhatPlaneTheme} full>
       <PageWrapper
         className="PageWrapper"
         fill="vertical"
