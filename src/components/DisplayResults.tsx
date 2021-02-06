@@ -1,6 +1,7 @@
 import React from "react";
-import { Button, Text, Image, Box } from "grommet";
+import { Button, Image, Box } from "grommet";
 import { Prediction } from "../services/predictions";
+import { WhatPlaneResult } from "./WhatPlaneResult"
 
 export const DisplayResults = ({
   imageURL,
@@ -22,44 +23,11 @@ export const DisplayResults = ({
       >
         <Image src={imageURL} fill="horizontal" />
       </Box>
+      <WhatPlaneResult prediction={prediction}/>
       <Box
         align="end"
         justify="center"
-        direction="row-responsive"
-        fill="horizontal"
-        round="medium"
-        gap="xlarge"
-        pad={{ vertical: "small" }}
-      >
-        <Box
-          align="center"
-          justify="center"
-          direction="row"
-          gap="xsmall"
-          fill="vertical"
-        >
-          <Text textAlign="start" weight="bold" size="large">
-            Prediction:
-          </Text>
-          <Text size="large">{prediction.class_name}</Text>
-        </Box>
-        <Box
-          align="center"
-          justify="center"
-          pad="small"
-          background={{ color: prediction.class_status }}
-          round="xsmall"
-          fill="vertical"
-        >
-          <Text weight="bold" color="white">
-            {prediction.class_prob.toFixed(1)} Percent
-          </Text>
-        </Box>
-      </Box>
-      <Box
-        align="end"
-        justify="center"
-        pad="xsmall"
+        pad="medium"
         direction="row-responsive"
         fill="horizontal"
       >

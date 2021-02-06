@@ -3,6 +3,7 @@ import { Grommet, Box, Header, Heading, Button } from "grommet";
 import { FaGithub } from "react-icons/fa";
 import { grommet } from "grommet/themes";
 import { MainContent } from "./components/MainContent";
+import { WhatPlaneTheme } from "./theme/WhatPlane"
 
 import styled from "styled-components";
 
@@ -31,15 +32,13 @@ function App() {
           align="center"
           justify="start"
           fill="vertical"
-          width="large"
-          pad={{ horizontal: "xlarge" }}
         >
           <Box className="BackgroundImage" width="100%" height="100%"></Box>
           <Box className="PageContent">
             <Box
               align="center"
               justify="between"
-              direction="row-responsive"
+              direction="row"
               fill="horizontal"
             >
               <Heading>WhatPlane?</Heading>
@@ -77,10 +76,11 @@ const PageWrapper = styled(Box)`
   .PageMain {
     position: relative;
     min-height: 550px;
-    min-width: 800px;
+    width: 80%;
   }
   .PageContent {
     position: relative;
     z-index: 1;
+    width: 80%;
   }
 `;

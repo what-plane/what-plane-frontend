@@ -51,6 +51,7 @@ export const MainContent = () => {
   };
   return (
     <Box
+      className="MainWrapper"
       align="center"
       justify="center"
       background={{ color: "light-1" }}
@@ -60,11 +61,12 @@ export const MainContent = () => {
       fill="horizontal"
     >
       <Box
+        className="MainHeading"
         align="center"
         justify="start"
         direction="row"
         fill="horizontal"
-        pad={{ vertical: "small" }}
+        pad={{ vertical: "medium" }}
       >
         <Heading
           size="small"
@@ -74,7 +76,15 @@ export const MainContent = () => {
           Upload Image
         </Heading>
       </Box>
-      <Box>
+      <Box
+        className="MainContent"
+        direction="column"
+        align="center"
+        justify="center"
+        fill="horizontal"
+        pad="xsmall"
+        style={{ width: "80%" }}
+      >
         {!uploading && prediction === undefined && (
           <ImageUpload
             onFileSelect={onFileSelect}
