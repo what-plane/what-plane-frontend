@@ -1,7 +1,8 @@
 import React from "react";
-import { Button, Image, Box } from "grommet";
+import { Button, Image, Box, Text } from "grommet";
 import { PredictData } from "../services/predictions";
-import { WhatPlaneResult } from "./WhatPlaneResult"
+import { WhatPlaneResult } from "./WhatPlaneResult";
+import { MdError } from "react-icons/md";
 
 export const DisplayResults = ({
   imageURL,
@@ -12,7 +13,7 @@ export const DisplayResults = ({
   predictionData: PredictData;
   onClickNewImage: any;
 }) => {
-  const prediction = predictionData.predictions[0]
+  const prediction = predictionData.predictions[0];
   return (
     <Box>
       <Box
@@ -24,8 +25,20 @@ export const DisplayResults = ({
       >
         <Image src={imageURL} fill="horizontal" />
       </Box>
-      { predictionData.predictor !== "whatplane" }
-      <WhatPlaneResult prediction={prediction}/>
+      {predictionData.predictor !== "whatplane" && (
+        <Box pad="xsmall" justify="center" align="center">
+          <Text size="xsmall">
+            <Text color="status-warning" size="x">
+              <MdError />{" "}
+            </Text>
+            Hey, it looks like you've uploaded a picture that doesn't have a
+            plane in it!
+          </Text>
+        </Box>
+      )}
+
+      <WhatPlaneResult prediction={prediction} />
+
       <Box
         align="end"
         justify="center"
