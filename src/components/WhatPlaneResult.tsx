@@ -6,7 +6,7 @@ export const WhatPlaneResult = ({ prediction }: { prediction: Prediction }) => {
   return (
     <Box
       align="end"
-      justify="between"
+      justify="center"
       direction="row-responsive"
       fill="horizontal"
       round="medium"
