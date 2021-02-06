@@ -52,7 +52,7 @@ function App() {
             <Box pad="small">
               <Text size="xsmall" color="dark-1">
                 A passenger aircraft recognition app based on Densenet.
-                <br /> Created by William Parr, Ashrith Yerrapragada and Stephen
+                <br /> Created by Will Parr, Ashrith Yerrapragada and Stephen
                 Griffiths
               </Text>
             </Box>
