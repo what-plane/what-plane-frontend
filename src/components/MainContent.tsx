@@ -73,7 +73,8 @@ export const MainContent = () => {
           textAlign="start"
           margin={{ horizontal: "none", vertical: "none" }}
         >
-          Upload Image
+          {predictionData === undefined && "Upload Image"}
+          {predictionData !== undefined && "Results"}
         </Heading>
       </Box>
       <Box
