@@ -23,12 +23,12 @@ export const DisplayResults = ({
         round="small"
         overflow="hidden"
       >
-        <Image src={imageURL} fill="horizontal" />
+        <Image src={imageURL} fill="horizontal" margin="small" />
       </Box>
       {predictionData.predictor !== "whatplane" && (
         <Box pad="xsmall" justify="center" align="center">
           <Text size="xsmall">
-            <Text color="status-warning" size="x">
+            <Text color="status-warning" size="xsmall">
               <MdError />{" "}
             </Text>
             Hey, it looks like you've uploaded a picture that doesn't have a
