@@ -41,7 +41,7 @@ function App() {
             >
               <Heading>WhatPlane?</Heading>
               <Button
-                size="medium"
+                size="large"
                 href="https://github.com/what-plane"
                 target="_blank"
                 icon={<FaGithub />}
