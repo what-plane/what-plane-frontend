@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Button, Grommet, Heading, Layer, Text } from "grommet";
 import { WhatPlaneTheme } from "../theme/WhatPlane";
-import { FormClose } from "grommet-icons";
+import { Close } from "grommet-icons";
 
 export const About = () => {
   const [open, setOpen] = React.useState<boolean>();
@@ -39,9 +39,8 @@ export const About = () => {
               pad={{ top: "small", bottom: "small" }}
             >
               <Button
-                label={<FormClose color="white" size="medium" />}
+                icon={<Close color="dark-1" size="medium" />}
                 onClick={onClose}
-                primary
               />
             </Box>
           </Box>
