@@ -1,6 +1,6 @@
 {
-  "name": "what-plane",
-  "version": "0.3.3",
+  "name": "whatplane-frontend",
+  "version": "0.3.4",
   "private": true,
   "dependencies": {
     "@azure/storage-blob": "^12.4.0",
