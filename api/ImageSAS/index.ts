@@ -52,7 +52,7 @@ const generateSASToken = (
     sasSignatureValues = { ...sasSignatureValues, blobName: uuidStr };
   }
 
-  const sasKey = generateBlobSASQueryParameters(
+  const sasQueryParams = generateBlobSASQueryParameters(
     sasSignatureValues,
     sharedKeyCredential
   );
@@ -61,7 +61,7 @@ const generateSASToken = (
     url: accountData.url,
     container: container,
     uuid: uuidStr,
-    sasKey: sasKey.toString(),
+    sasToken: sasQueryParams.toString(),
   };
 };
 
