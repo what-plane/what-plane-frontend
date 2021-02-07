@@ -29,6 +29,8 @@ export const MainContent = () => {
         alert("Please select an image filetype (jpg/png)");
       } else if (fileSelected.size > 20971520) {
         alert("Please upload a smaller image (max file size: 20Mb)");
+      } else if (fileSelected.size === 0) {
+        alert("Please upload an image larger than 0 bytes");
       } else {
         setUploading(true);
         // Upload to Azure Storage
