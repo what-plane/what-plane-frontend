@@ -52,6 +52,7 @@ export const MainContent = () => {
     setFileSelected(undefined);
     setPredictionData(undefined);
     setImageURL("");
+    setDropzoneText("Drop or Select an Image");
   };
   return (
     <Box
