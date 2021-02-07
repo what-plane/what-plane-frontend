@@ -4,7 +4,7 @@ import { ImageUpload } from "./ImageUpload";
 import { LoadingSpinner } from "./LoadingSpinner";
 import { DisplayResults } from "./DisplayResults";
 
-import uploadFileToBlob from "../services/storage";
+import uploadFileToBlob, { constructBlobURL } from "../services/storage";
 import { PredictData, fetchPrediction } from "../services/predictions";
 
 export const MainContent = () => {
@@ -32,11 +32,11 @@ export const MainContent = () => {
       } else {
         setUploading(true);
         // Upload to Azure Storage
-        const thisBlobURL: string = await uploadFileToBlob(fileSelected);
+        const blobParams = await uploadFileToBlob(fileSelected);
 
         // prepare UI for results
-        setImageURL(thisBlobURL);
-        const predObject = await fetchPrediction(thisBlobURL);
+        setImageURL(constructBlobURL(blobParams));
+        const predObject = await fetchPrediction(blobParams.uuid);
         setPredictionData(predObject);
 
         // reset state
