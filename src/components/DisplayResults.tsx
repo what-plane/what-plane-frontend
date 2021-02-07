@@ -31,8 +31,8 @@ export const DisplayResults = ({
             <Text color="status-warning" size="xsmall">
               <MdError />{" "}
             </Text>
-            Hey, it looks like you've uploaded a picture that doesn't have a
-            plane in it!
+            Hey, it looks like you've uploaded a picture that doesn't have an
+            airplane in it!
           </Text>
         </Box>
       )}
