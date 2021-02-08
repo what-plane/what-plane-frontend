@@ -40,8 +40,8 @@ const generateSASToken = (
 ): SASToken => {
   const uuidStr: string = v4();
 
-  const connString: string = process.env.AZURE_BLOB_CONN_STRING;
-  if (connString == null) {
+  const connString = process.env.AZURE_BLOB_CONN_STRING;
+  if (connString == undefined) {
     throw new Error("Unable to load Connection String");
   }
 
