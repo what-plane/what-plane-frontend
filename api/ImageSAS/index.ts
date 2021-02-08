@@ -7,6 +7,19 @@ import {
 } from "@azure/storage-blob";
 import { v4 } from "uuid";
 
+interface SASToken {
+  url: string;
+  container: string;
+  uuid: string;
+  sasToken: string;
+}
+
+interface ParsedConnStr {
+  name: string;
+  key: string;
+  url: string;
+}
+
 const httpTrigger: AzureFunction = async function (
   context: Context,
   req: HttpRequest
@@ -24,7 +37,7 @@ const generateSASToken = (
   container: string,
   permissions: string,
   blobOnly: boolean = true
-): any => {
+): SASToken => {
   const uuidStr: string = v4();
 
   const connString: string = process.env.AZURE_BLOB_CONN_STRING;
@@ -78,9 +91,7 @@ const extractConnStringElement = (
   }
 };
 
-const parseConnString = (
-  connString: string
-): { name: string; key: string; url: string } => {
+const parseConnString = (connString: string): ParsedConnStr => {
   const accountName: string = extractConnStringElement(
     connString,
     "AccountName"
