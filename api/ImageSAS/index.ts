@@ -46,13 +46,13 @@ const generateSASToken = (
   }
 
   const accountData = parseConnString(connString);
-  const sharedKeyCredential: StorageSharedKeyCredential = new StorageSharedKeyCredential(
+  const sharedKeyCredential = new StorageSharedKeyCredential(
     accountData.name,
     accountData.key
   );
 
   // Create a SAS token that expires in a few minutes
-  const expiryDate: Date = new Date();
+  const expiryDate = new Date();
   expiryDate.setMinutes(expiryDate.getMinutes() + 5);
 
   let sasSignatureValues: BlobSASSignatureValues = {
@@ -82,8 +82,8 @@ const extractConnStringElement = (
   connString: string,
   element: string
 ): string => {
-  const regexStr: string = `(?<=${element}=)[^;]+`;
-  const matchArr: Array<string> = connString.match(regexStr);
+  const regexStr = new RegExp(`(?<=${element}=)[^;]+`);
+  const matchArr = connString.match(regexStr);
   if (matchArr) {
     return matchArr[0];
   } else {
@@ -92,12 +92,12 @@ const extractConnStringElement = (
 };
 
 const parseConnString = (connString: string): ParsedConnStr => {
-  const accountName: string = extractConnStringElement(
+  const accountName = extractConnStringElement(
     connString,
     "AccountName"
   );
-  const accountKey: string = extractConnStringElement(connString, "AccountKey");
-  const url: string =
+  const accountKey = extractConnStringElement(connString, "AccountKey");
+  const url =
     extractConnStringElement(connString, "DefaultEndpointsProtocol") +
     "://" +
     accountName +
