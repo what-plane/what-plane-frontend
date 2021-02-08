@@ -32,7 +32,7 @@ export const DisplayResults = ({
               <MdError />{" "}
             </Text>
             Hey, it looks like you've uploaded a picture that doesn't have an
-            airplane in it!
+            aeroplane in it!
           </Text>
         </Box>
       )}
