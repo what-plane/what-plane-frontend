@@ -11,7 +11,9 @@ type Nullable<T> = T | null;
 
 export const MainContent = () => {
   const [imageURL, setImageURL] = useState<string>("");
-  const [predictionData, setPredictionData] = useState<Nullable<PredictData>>(null);
+  const [predictionData, setPredictionData] = useState<Nullable<PredictData>>(
+    null
+  );
 
   // file to upload to container
   const [fileSelected, setFileSelected] = useState<Nullable<File>>(null);
@@ -25,7 +27,7 @@ export const MainContent = () => {
     setDropzoneText(selectedFiles[0].name);
   };
 
-  const onClickSubmit = async () => {
+  const onClickSubmit = React.useCallback(async () => {
     if (fileSelected) {
       if (!["image/jpeg", "image/png"].includes(fileSelected?.type)) {
         alert("Please select an image filetype (jpg/png)");
@@ -48,14 +50,15 @@ export const MainContent = () => {
         setUploading(false);
       }
     }
-  };
+  }, [fileSelected]);
 
-  const onClickNewImage = () => {
+  const onClickNewImage = React.useCallback(() => {
     setFileSelected(null);
     setPredictionData(null);
     setImageURL("");
     setDropzoneText("Drop or Select an Image");
-  };
+  }, []);
+
   return (
     <Box
       className="MainWrapper"
