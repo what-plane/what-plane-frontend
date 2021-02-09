@@ -1,10 +1,10 @@
 import React from "react";
 import { Grommet, Box, Header, Heading, Button, Text } from "grommet";
 import { FaGithub } from "react-icons/fa";
-import { MainContent } from "./components/MainContent";
-import { WhatPlaneTheme } from "./theme/WhatPlane";
-import { About } from "./components/About";
 import styled from "styled-components";
+import { MainContent } from "./components/MainContent";
+import { About } from "./components/About";
+import { WhatPlaneTheme } from "./theme/WhatPlane";
 
 function App() {
   return (
