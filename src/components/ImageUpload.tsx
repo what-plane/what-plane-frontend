@@ -1,15 +1,21 @@
 import React from "react";
 import { Button, Form, Box, Text } from "grommet";
-import Dropzone from "react-dropzone";
+import Dropzone, { DropEvent, FileRejection } from "react-dropzone";
 
-export const ImageUpload = ({
+interface ImageUploadProps {
+  onFileSelect: <T extends File>(
+    acceptedFiles: T[],
+    fileRejections: FileRejection[],
+    event: DropEvent
+  ) => void;
+  onClickSubmit: () => Promise<void>;
+  dropzoneText: string;
+}
+
+export const ImageUpload: React.FC<ImageUploadProps> = ({
   onFileSelect,
   onClickSubmit,
   dropzoneText,
-}: {
-  onFileSelect: (event: any) => void;
-  onClickSubmit: () => Promise<void>;
-  dropzoneText: string;
 }) => {
   return (
     <Form style={{ width: "50%" }}>
