@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Image, Box, Text } from "grommet";
-import { PredictData } from "../services/predictions";
+import { PredictData, Prediction } from "../services/predictions";
 import { WhatPlaneResult } from "./WhatPlaneResult";
 import { MdError } from "react-icons/md";
 
@@ -17,7 +17,13 @@ export const DisplayResults: React.FC<DisplayResultsProps> = ({
   predictionData,
   onClickNewImage,
 }) => {
-  const prediction = predictionData.predictions[0];
+  let prediction: Prediction;
+  if (predictionData.predictions[0]) {
+    prediction = predictionData.predictions[0];
+  } else {
+    throw new Error("Unable to parse prediction data");
+  }
+
   return (
     <Box>
       <Box
