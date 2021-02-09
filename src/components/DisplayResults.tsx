@@ -4,14 +4,18 @@ import { PredictData } from "../services/predictions";
 import { WhatPlaneResult } from "./WhatPlaneResult";
 import { MdError } from "react-icons/md";
 
-export const DisplayResults = ({
+interface DisplayResultsProps {
+  imageURL: string;
+  predictionData: PredictData;
+  onClickNewImage: (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => void;
+}
+
+export const DisplayResults: React.FC<DisplayResultsProps> = ({
   imageURL,
   predictionData,
   onClickNewImage,
-}: {
-  imageURL: string;
-  predictionData: PredictData;
-  onClickNewImage: any;
 }) => {
   const prediction = predictionData.predictions[0];
   return (
