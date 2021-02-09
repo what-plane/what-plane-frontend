@@ -1,8 +1,9 @@
 import React from "react";
 import { Button, Image, Box, Text } from "grommet";
-import { PredictData, Prediction } from "../services/predictions";
-import { WhatPlaneResult } from "./WhatPlaneResult";
 import { MdError } from "react-icons/md";
+import PredictionResult from "./PredictionResult";
+
+import { PredictData, Prediction } from "../services/predictions";
 
 interface DisplayResultsProps {
   imageURL: string;
@@ -47,7 +48,7 @@ export const DisplayResults: React.FC<DisplayResultsProps> = ({
         </Box>
       )}
 
-      <WhatPlaneResult prediction={prediction} />
+      <PredictionResult prediction={prediction} />
 
       <Box
         align="end"
