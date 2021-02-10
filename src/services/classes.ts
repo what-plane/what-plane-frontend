@@ -10,7 +10,7 @@ const fetchClasses = async (): Promise<ClassNamesData> => {
   // Get sasKey, container, etc.. from API
   try {
     const response = await axios.get<ClassNamesData>(
-      "http://localhost:5000/classes/whatplane"
+      "https://whatplane-docker.azurewebsites.net/classes/whatplane"
     );
     wpClassNames = response.data;
   } catch (e) {
