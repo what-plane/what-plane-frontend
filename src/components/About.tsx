@@ -71,7 +71,7 @@ export const About = () => {
               <Text size="small" weight="bold">
                 List of Aircraft
               </Text>
-              <List data={predClassNames} margin="xsmall" pad="xsmall"></List>
+              <List data={predClassNames} margin="xsmall" pad="none"></List>
             </Text>
             {/* </Box> */}
 
