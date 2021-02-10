@@ -1,6 +1,6 @@
 import { ThemeType } from "grommet/themes";
 
-export const WhatPlaneTheme: ThemeType = {
+const WhatPlaneTheme: ThemeType = {
   global: {
     font: {
       family: "Roboto",
@@ -11,3 +11,5 @@ export const WhatPlaneTheme: ThemeType = {
     },
   },
 };
+
+export default WhatPlaneTheme;

@@ -12,7 +12,7 @@ import {
 import { deepMerge } from "grommet/utils";
 import { ThemeType } from "grommet/themes";
 import { Close } from "grommet-icons";
-import { WhatPlaneTheme } from "../theme/WhatPlane";
+import WhatPlaneTheme from "../theme/WhatPlane";
 import fetchClasses from "../services/classes";
 
 const theme: ThemeType = deepMerge(WhatPlaneTheme, {

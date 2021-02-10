@@ -4,7 +4,7 @@ import { FaGithub } from "react-icons/fa";
 import styled from "styled-components";
 import { MainContent } from "./components/MainContent";
 import { About } from "./components/About";
-import { WhatPlaneTheme } from "./theme/WhatPlane";
+import WhatPlaneTheme from "./theme/WhatPlane";
 
 function App() {
   return (
