@@ -10,11 +10,12 @@ import {
   Paragraph,
 } from "grommet";
 import { deepMerge } from "grommet/utils";
-import { grommet, ThemeType } from "grommet/themes";
+import { ThemeType } from "grommet/themes";
 import { Close } from "grommet-icons";
+import { WhatPlaneTheme } from "../theme/WhatPlane";
 import fetchClasses from "../services/classes";
 
-const theme: ThemeType = deepMerge(grommet, {
+const theme: ThemeType = deepMerge(WhatPlaneTheme, {
   list: {
     item: {
       pad: { horizontal: "large", vertical: "xsmall" },
