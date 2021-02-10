@@ -28,16 +28,16 @@ export const About = () => {
   const [open, setOpen] = useState<boolean>();
   const [predClassNames, setPredClassNames] = useState<Array<string>>([]);
 
-  const onOpen = async () => {
+  const onOpen = React.useCallback(async () => {
     const classes = await fetchClasses();
     setPredClassNames(classes.class_names);
     setOpen(true);
-  };
+  }, []);
 
-  const onClose = async () => {
+  const onClose = React.useCallback(async () => {
     setOpen(undefined);
     setPredClassNames([]);
-  };
+  }, []);
 
   return (
     <Grommet theme={theme}>
