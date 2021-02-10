@@ -1,9 +1,13 @@
 # WhatPlane React Frontend
 
 Static React frontend for WhatPlane, using Typescript. Deployed on Azure Static
-Web Apps. Built using Grommet and React Dropzone
+Web Apps. Built using Grommet and React Dropzone.
 
 [WhatPlane](https://whatplaneis.it) to view the app.
+
+## Architecture:
+
+![WhatPlane Architecture](public/images/WhatPlane-Azure.png)
 
 ## Services
 
