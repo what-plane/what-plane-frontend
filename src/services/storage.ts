@@ -1,36 +1,51 @@
 import { BlockBlobClient } from "@azure/storage-blob";
 import axios from "axios";
 
+export interface AzureBlobParams {
+  url: string;
+  container: string;
+  uuid: string;
+  sasToken: string;
+}
+
 // Upload file to blob
-const uploadFileToBlob = async (file: File | null): Promise<string> => {
-  if (!file) return "";
+const uploadFileToBlob = async (file: File): Promise<AzureBlobParams> => {
+  let azureBlobParams: AzureBlobParams;
 
-  // Get sasKey, container, etc.. from API
-  const {
-    sasKey,
-    container,
-    url,
-    uuid,
-  }: {
-    sasKey: string;
-    container: string;
-    url: string;
-    uuid: string;
-  } = await axios.get("/api/ImageSAS/").then((response) => {
-    return response.data;
-  });
+  // Get UUID, sasToken, container, etc.. from API
+  try {
+    const response = await axios.get<AzureBlobParams>("/api/ImageSAS/");
+    azureBlobParams = response.data;
+  } catch (e) {
+    throw new Error(
+      `Unable to fetch blob information from API, failed with error: ${e}`
+    );
+  }
 
-  // Create BlobClient
-  const blobClient = new BlockBlobClient(
-    `${url}/${container}/${uuid}?${sasKey}`
-  );
+  if (azureBlobParams) {
+    try {
+      // Create BlobClient
+      const blobClient = new BlockBlobClient(constructBlobURL(azureBlobParams));
 
-  const options = { blobHTTPHeaders: { blobContentType: file.type } };
+      const options = { blobHTTPHeaders: { blobContentType: file.type } };
 
-  await blobClient.uploadData(file, options);
+      await blobClient.uploadData(file, options);
+    } catch (e) {
+      throw new Error(`Unable to upload image, failed with error: ${e}`);
+    }
+  }
+  return azureBlobParams;
+};
 
-  const blobURL: string = blobClient.url;
-  return blobURL;
+export const constructBlobURL = (azureBlobParams: AzureBlobParams): string => {
+  // Take blob params and assemble full URL for blob
+  const urlPart = [
+    azureBlobParams.url,
+    azureBlobParams.container,
+    azureBlobParams.uuid,
+  ].join("/");
+  const fullURL = `${urlPart}?${azureBlobParams.sasToken}`;
+  return fullURL;
 };
 
 export default uploadFileToBlob;

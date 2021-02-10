@@ -1,6 +1,5 @@
 import axios from "axios";
 
-const uuidRegex: string = "(?<=/)[^/?#]+(?=[^/]*$)";
 export interface PredictData {
   predictions: Array<Prediction>;
   predictor: string;
@@ -13,8 +12,7 @@ export interface Prediction {
   class_status?: string;
 }
 
-export const fetchPrediction = async (blobURL: string): Promise<PredictData> => {
-  const uuid = blobURL.match(uuidRegex);
+export const fetchPrediction = async (uuid: string): Promise<PredictData> => {
   let data: PredictData = await axios
     .get<PredictData>(
       `https://whatplane-docker.azurewebsites.net/predict/${uuid}`

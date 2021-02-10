@@ -1,8 +1,13 @@
 import React from "react";
 import { Text, Box } from "grommet";
+
 import { Prediction } from "../services/predictions";
 
-export const WhatPlaneResult = ({ prediction }: { prediction: Prediction }) => {
+interface PredictionResultProps {
+  prediction: Prediction;
+}
+
+const PredictionResult: React.FC<PredictionResultProps> = ({ prediction }) => {
   return (
     <Box
       align="end"
@@ -26,7 +31,9 @@ export const WhatPlaneResult = ({ prediction }: { prediction: Prediction }) => {
           </Text>
         </Box>
         <Box>
-          <Text textAlign="center" size="medium">{prediction.class_name}</Text>
+          <Text textAlign="center" size="medium">
+            {prediction.class_name}
+          </Text>
         </Box>
       </Box>
       <Box
@@ -44,3 +51,5 @@ export const WhatPlaneResult = ({ prediction }: { prediction: Prediction }) => {
     </Box>
   );
 };
+
+export default PredictionResult;

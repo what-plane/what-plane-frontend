@@ -1,9 +1,11 @@
 import React from "react";
 import { Grommet, Box, Header, Heading, Button, Text } from "grommet";
 import { FaGithub } from "react-icons/fa";
-import { MainContent } from "./components/MainContent";
-import { WhatPlaneTheme } from "./theme/WhatPlane";
 import styled from "styled-components";
+import { MainContent } from "./components/MainContent";
+import { About } from "./components/About";
+import WhatPlaneTheme from "./theme/WhatPlane";
+import { version as app_version } from "../package.json";
 
 function App() {
   return (
@@ -41,28 +43,41 @@ function App() {
               pad={{ top: "medium" }}
             >
               <Heading margin="small">WhatPlane?</Heading>
-
-              <Button
-                size="large"
-                href="https://github.com/what-plane"
-                target="_blank"
-                icon={<FaGithub />}
-              />
+              <Box direction="row" align="center">
+                <About />
+                <Button
+                  size="large"
+                  href="https://github.com/what-plane"
+                  target="_blank"
+                  icon={<FaGithub />}
+                />
+              </Box>
             </Box>
             <Box pad="small">
               <Text size="xsmall" color="dark-1">
-                A passenger aircraft recognition app based on Densenet.
+                A passenger aircraft recognition app.
                 <br /> Created by Will Parr, Ashrith Yerrapragada and Stephen
                 Griffiths
               </Text>
             </Box>
 
             <MainContent />
-            <Box align="center" justify="center" pad="small">
-              <Text size="xsmall" color="dark-1">
-                By using our app, you agree to us storing the uploaded images
-                for future model training and processing.
-              </Text>
+            <Box
+              align="center"
+              justify="between"
+              direction="row-responsive"
+              fill="horizontal"
+              pad={{ horizontal: "medium" }}
+            >
+              <Box align="center" justify="between" pad="small">
+                <Text size="xsmall" color="dark-1">
+                  By using our app, you agree to us storing the uploaded images
+                  for future model training and processing.
+                </Text>
+              </Box>
+              <Box align="center" justify="between" pad="small">
+                <Text size="xsmall">v{app_version}</Text>
+              </Box>
             </Box>
           </Box>
         </Box>
