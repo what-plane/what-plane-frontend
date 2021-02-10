@@ -7,12 +7,16 @@ import { DisplayResults } from "./DisplayResults";
 import uploadFileToBlob, { constructBlobURL } from "../services/storage";
 import { PredictData, fetchPrediction } from "../services/predictions";
 
+type Nullable<T> = T | null;
+
 export const MainContent = () => {
   const [imageURL, setImageURL] = useState<string>("");
-  const [predictionData, setPredictionData] = useState<PredictData>();
+  const [predictionData, setPredictionData] = useState<Nullable<PredictData>>(
+    null
+  );
 
   // file to upload to container
-  const [fileSelected, setFileSelected] = useState<File>();
+  const [fileSelected, setFileSelected] = useState<Nullable<File>>(null);
   const [dropzoneText, setDropzoneText] = useState("Drop or Select an Image");
 
   const [uploading, setUploading] = useState(false);
@@ -23,7 +27,7 @@ export const MainContent = () => {
     setDropzoneText(selectedFiles[0].name);
   };
 
-  const onClickSubmit = async () => {
+  const onClickSubmit = React.useCallback(async () => {
     if (fileSelected) {
       if (!["image/jpeg", "image/png"].includes(fileSelected?.type)) {
         alert("Please select an image filetype (jpg/png)");
@@ -42,18 +46,19 @@ export const MainContent = () => {
         setPredictionData(predObject);
 
         // reset state
-        setFileSelected(undefined);
+        setFileSelected(null);
         setUploading(false);
       }
     }
-  };
+  }, [fileSelected]);
 
-  const onClickNewImage = () => {
-    setFileSelected(undefined);
-    setPredictionData(undefined);
+  const onClickNewImage = React.useCallback(() => {
+    setFileSelected(null);
+    setPredictionData(null);
     setImageURL("");
     setDropzoneText("Drop or Select an Image");
-  };
+  }, []);
+
   return (
     <Box
       className="MainWrapper"
@@ -78,8 +83,8 @@ export const MainContent = () => {
           textAlign="start"
           margin={{ horizontal: "none", vertical: "none" }}
         >
-          {predictionData === undefined && "Upload Image"}
-          {predictionData !== undefined && "Results"}
+          {predictionData === null && "Upload Image"}
+          {predictionData !== null && "Results"}
         </Heading>
       </Box>
       <Box
@@ -91,15 +96,15 @@ export const MainContent = () => {
         pad="xsmall"
         style={{ width: "80%" }}
       >
-        {!uploading && predictionData === undefined && (
+        {!uploading && predictionData === null && (
           <ImageUpload
             dropzoneText={dropzoneText}
             onFileSelect={onFileSelect}
             onClickSubmit={onClickSubmit}
           />
         )}
-        {uploading && predictionData === undefined && <LoadingSpinner />}
-        {predictionData !== undefined && (
+        {uploading && predictionData === null && <LoadingSpinner />}
+        {predictionData !== null && (
           <DisplayResults
             imageURL={imageURL}
             predictionData={predictionData}

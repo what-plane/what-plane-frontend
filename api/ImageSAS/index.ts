@@ -7,6 +7,19 @@ import {
 } from "@azure/storage-blob";
 import { v4 } from "uuid";
 
+interface SASToken {
+  url: string;
+  container: string;
+  uuid: string;
+  sasToken: string;
+}
+
+interface ParsedConnStr {
+  name: string;
+  key: string;
+  url: string;
+}
+
 const httpTrigger: AzureFunction = async function (
   context: Context,
   req: HttpRequest
@@ -24,22 +37,22 @@ const generateSASToken = (
   container: string,
   permissions: string,
   blobOnly: boolean = true
-): any => {
+): SASToken => {
   const uuidStr: string = v4();
 
-  const connString: string = process.env.AZURE_BLOB_CONN_STRING;
-  if (connString == null) {
+  const connString = process.env.AZURE_BLOB_CONN_STRING;
+  if (connString == undefined) {
     throw new Error("Unable to load Connection String");
   }
 
   const accountData = parseConnString(connString);
-  const sharedKeyCredential: StorageSharedKeyCredential = new StorageSharedKeyCredential(
+  const sharedKeyCredential = new StorageSharedKeyCredential(
     accountData.name,
     accountData.key
   );
 
   // Create a SAS token that expires in a few minutes
-  const expiryDate: Date = new Date();
+  const expiryDate = new Date();
   expiryDate.setMinutes(expiryDate.getMinutes() + 5);
 
   let sasSignatureValues: BlobSASSignatureValues = {
@@ -69,8 +82,8 @@ const extractConnStringElement = (
   connString: string,
   element: string
 ): string => {
-  const regexStr: string = `(?<=${element}=)[^;]+`;
-  const matchArr: Array<string> = connString.match(regexStr);
+  const regexStr = new RegExp(`(?<=${element}=)[^;]+`);
+  const matchArr = connString.match(regexStr);
   if (matchArr) {
     return matchArr[0];
   } else {
@@ -78,15 +91,13 @@ const extractConnStringElement = (
   }
 };
 
-const parseConnString = (
-  connString: string
-): { name: string; key: string; url: string } => {
-  const accountName: string = extractConnStringElement(
+const parseConnString = (connString: string): ParsedConnStr => {
+  const accountName = extractConnStringElement(
     connString,
     "AccountName"
   );
-  const accountKey: string = extractConnStringElement(connString, "AccountKey");
-  const url: string =
+  const accountKey = extractConnStringElement(connString, "AccountKey");
+  const url =
     extractConnStringElement(connString, "DefaultEndpointsProtocol") +
     "://" +
     accountName +

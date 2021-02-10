@@ -12,26 +12,33 @@ export interface AzureBlobParams {
 const uploadFileToBlob = async (file: File): Promise<AzureBlobParams> => {
   let azureBlobParams: AzureBlobParams;
 
-  // Get sasKey, container, etc.. from API
+  // Get UUID, sasToken, container, etc.. from API
   try {
     const response = await axios.get<AzureBlobParams>("/api/ImageSAS/");
     azureBlobParams = response.data;
   } catch (e) {
-    throw new Error(e);
+    throw new Error(
+      `Unable to fetch blob information from API, failed with error: ${e}`
+    );
   }
 
   if (azureBlobParams) {
-    // Create BlobClient
-    const blobClient = new BlockBlobClient(constructBlobURL(azureBlobParams));
+    try {
+      // Create BlobClient
+      const blobClient = new BlockBlobClient(constructBlobURL(azureBlobParams));
 
-    const options = { blobHTTPHeaders: { blobContentType: file.type } };
+      const options = { blobHTTPHeaders: { blobContentType: file.type } };
 
-    await blobClient.uploadData(file, options);
+      await blobClient.uploadData(file, options);
+    } catch (e) {
+      throw new Error(`Unable to upload image, failed with error: ${e}`);
+    }
   }
   return azureBlobParams;
 };
 
 export const constructBlobURL = (azureBlobParams: AzureBlobParams): string => {
+  // Take blob params and assemble full URL for blob
   const urlPart = [
     azureBlobParams.url,
     azureBlobParams.container,

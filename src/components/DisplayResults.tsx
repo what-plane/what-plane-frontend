@@ -1,19 +1,30 @@
 import React from "react";
 import { Button, Image, Box, Text } from "grommet";
-import { PredictData } from "../services/predictions";
-import { WhatPlaneResult } from "./WhatPlaneResult";
 import { MdError } from "react-icons/md";
+import PredictionResult from "./PredictionResult";
 
-export const DisplayResults = ({
+import { PredictData, Prediction } from "../services/predictions";
+
+interface DisplayResultsProps {
+  imageURL: string;
+  predictionData: PredictData;
+  onClickNewImage: (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => void;
+}
+
+export const DisplayResults: React.FC<DisplayResultsProps> = ({
   imageURL,
   predictionData,
   onClickNewImage,
-}: {
-  imageURL: string;
-  predictionData: PredictData;
-  onClickNewImage: any;
 }) => {
-  const prediction = predictionData.predictions[0];
+  let prediction: Prediction;
+  if (predictionData.predictions[0]) {
+    prediction = predictionData.predictions[0];
+  } else {
+    throw new Error("Unable to parse prediction data");
+  }
+
   return (
     <Box>
       <Box
@@ -37,7 +48,7 @@ export const DisplayResults = ({
         </Box>
       )}
 
-      <WhatPlaneResult prediction={prediction} />
+      <PredictionResult prediction={prediction} />
 
       <Box
         align="end"
